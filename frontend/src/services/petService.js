@@ -11,12 +11,6 @@ export const petService = {
 
 async function query(filterBy) {
     let queryStr = '';
-    //todo - change after building backend
-    // if (filterBy){
-    //     filterBy.type = filterBy.type.charAt(0).toUpperCase()+filterBy.type.slice(1);
-    //     queryStr = '?' + Object.keys(filterBy).map(key => key + '=' + filterBy[key]).join('&');
-
-    // }    
     const res = await httpService.get(`${BASE_URL}${queryStr}`, {
         params: filterBy
     });
@@ -29,11 +23,9 @@ async function getPetById(id) {
 }
 async function save(pet) {
     if (pet._id) {
-        // pet.updatedAt = new Date(date.now()).toLocaleString();
         const res = await httpService.put(`${BASE_URL}/${pet._id}`, pet)
         return res;
     } else {
-        // pet.createdAt = new Date(date.now()).toLocaleString();
         const res = await httpService.post(`${BASE_URL}`, pet)
         return res;
     }
@@ -44,7 +36,6 @@ async function remove(petId) {
 
 function filterPets(pets, filterBy) {
     if (!filterBy) return pets
-
     let filteredPets = pets
     if (filterBy.txt) {
         filterBy.txt = filterBy.txt.trim(' ');
@@ -57,27 +48,21 @@ function filterPets(pets, filterBy) {
             filteredPets = filteredPets.filter(pet => {
                 if (pet.name.toLowerCase().includes(word) ||
                     pet.type.toLowerCase().includes(word) ||
-                    pet.gender.toLowerCase().includes(word) ||
                     pet.size.toLowerCase().includes(word) ||
-                    pet.summary.toLowerCase().includes(word) ||
-                    pet.description.toLowerCase().includes(word) ||
                     pet.shop.fullName.toLowerCase().includes(word)) return pet
             })
         })
     }
 
-
     filteredPets = filteredPets.filter(pet => {
         return pet.type.toLowerCase().includes(filterBy.type)
     })
-
 
     if (filterBy.distance.range) {
         const userLoc = {lat: filterBy.distance.lat, lng: filterBy.distance.lon};
         filteredPets = filteredPets.filter(pet => {
             const petLoc = {lat:pet.location.lat, lng:pet.location.lng };
             const distanceFromUser = SphericalUtil.computeDistanceBetween(userLoc, petLoc)/1000
-            console.log('distanceFromUser',distanceFromUser)
             return  distanceFromUser <= filterBy.distance.range
         })
     }

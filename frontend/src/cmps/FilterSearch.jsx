@@ -4,24 +4,19 @@ import { withRouter } from 'react-router-dom';
 import { setFilter, loadPets } from '../store/actions/petActions.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { animateScroll as scroll } from "react-scroll";
-
 
 class _FilterSearch extends Component {
 
     state = {
         txt: '',
+        parent: '',
         isClearShown: false
     }
 
     async componentDidMount() {
-        await this.setState({ txt: this.props.filterBy.txt });
-        await this.setState({ parent: this.props.parent });
+        this.setState({ txt: this.props.filterBy.txt });
+        this.setState({ parent: this.props.parent });
         this.setState({ isClearShown: this.state.txt !== '' })
-        if (this.props) {
-            console.log(this.props);
-        }
-
     }
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
@@ -31,16 +26,14 @@ class _FilterSearch extends Component {
     }
 
     onInputChange = async (ev) => {
-        console.log(ev.target.value);
         const txt = ev.target.value;
         this.setState({ isClearShown: txt !== '' })
-        await this.setState({ txt });
+        this.setState({ txt });
         if (!txt && this.state.parent !== 'hero') await this.onSearch();
     }
     keyPress = (e) => {
         if (e.keyCode == 13) {
             this.onSearch();
-
         }
     }
     onClear = async () => {
@@ -51,8 +44,6 @@ class _FilterSearch extends Component {
 
     onSearch = async () => {
         await this.props.setFilter({ txt: this.state.txt }, () => this.props.loadPets())
-        console.log(this.props)
-
         if (this.state.parent === 'hero') this.props.history.push('/pet')
 
     }
@@ -74,8 +65,6 @@ class _FilterSearch extends Component {
                         onClick={this.onClear} icon={faTimesCircle} />
                 </div>
                 <div className="btn-search" onClick={this.onSearch}>Search</div>
-                {/* <div className="icons-container">
-                </div> */}
             </section>
         )
     }

@@ -7,11 +7,8 @@ import { saveChat, getChatById, toggleChat } from '../store/actions/chatActions.
 import { updateUser } from '../store/actions/userActions.js';
 import userService from '../services/userService.js'
 import { shopService } from '../services/shopService.js'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { faTimes, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-
 
 class _Chat extends Component {
 
@@ -33,20 +30,18 @@ class _Chat extends Component {
 
     async componentDidMount() {
         var sender = this.props.loggedInUser;
-        await this.setState({ sender })
-        
+        this.setState({ sender })
+
         let isDemo = null
         if (this.props.currChatInfo.chatInfo) {
-            
-            isDemo=true;
-            const recipient ={
-                imgUrl:`https://ui-avatars.com/api/?name=G+$u`,
-                name:'Guest'
-            } 
+            isDemo = true;
+            const recipient = {
+                imgUrl: `https://ui-avatars.com/api/?name=G+$u`,
+                name: 'Guest'
+            }
             this.setState({ recipient });
-        
-        } else{
 
+        } else {
             await this.setRecipientInfo(this.props.currChatInfo.userId);
         }
         const chat = this.getChatIfExists() || this.creatNewChat(isDemo);
@@ -88,9 +83,9 @@ class _Chat extends Component {
     }
 
     creatNewChat = (isDemo) => {
-        let chat={};
+        let chat = {};
         console.log(this.state);
-        if (isDemo){
+        if (isDemo) {
             chat = {
                 topic: `guest__${this.state.sender._id}`,
                 members: [this.state.sender._id, this.state.recipient._id],
@@ -113,7 +108,7 @@ class _Chat extends Component {
     }
 
     addMsg = async newMsg => {
-        console.log('incoming msg:',newMsg);
+        console.log('incoming msg:', newMsg);
         this.setState({
             chat: {
                 ...this.state.chat,

@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-
 import { toggleChat } from '../store/actions/chatActions.js';
 import { shopService } from '../services/shopService.js';
 import { loadPets, savePet, removePet } from '../store/actions/petActions.js';
 import { saveOrder } from '../store/actions/orderActions.js';
-
-
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons'
@@ -20,7 +16,6 @@ import { TextField } from '@material-ui/core';
 import { animateScroll as scroll } from "react-scroll";
 import { WhatsappShareButton, WhatsappIcon, FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon } from 'react-share'
 import { AdoptionMsgModal } from '../cmps/AdoptionMsgModal.jsx';
-
 
 class _PetDetails extends Component {
 
@@ -63,7 +58,7 @@ class _PetDetails extends Component {
     onAdopt = async () => {
         const { loggedInUser } = this.props
         if (loggedInUser.isGuest) return
-        
+
         const pet = this.state.pet
         const shopId = pet.shop._id
         const shop = await shopService.getById(shopId)
@@ -90,19 +85,18 @@ class _PetDetails extends Component {
         this.setState({ AdoptionModalMsg: !this.state.AdoptionModalMsg })
         setTimeout(() => {
             this.setState({ AdoptionModalMsg: !this.state.AdoptionModalMsg })
-          }, 1000);
+        }, 1000);
         this.setState({ adoptButton: 'Request Sent' })
     }
 
     onRemovePet = (petId) => {
         console.log('petId', petId);
-        // this.props.removePet(petId)
+        this.props.removePet(petId)
     }
 
-     onToggleChat = async() => {
- 
+    onToggleChat = async () => {
         const shop = await shopService.getById(this.state.pet.shop._id);
-        await this.props.toggleChat({'userId':shop.owner._id})
+        await this.props.toggleChat({ 'userId': shop.owner._id })
     }
 
     onUpdateReaction = (reaction) => {
@@ -139,18 +133,7 @@ class _PetDetails extends Component {
         this.setState({ cuurComment: '' })
     }
 
-    getTimeToString = () => {
-        var time = new Date();
-        var dd = String(time.getDate()).padStart(2, '0');
-        var mm = String(time.getMonth() + 1).padStart(2, '0');
-        var yyyy = time.getFullYear();
-
-        time = mm + '/' + dd + '/' + yyyy;
-        return time
-    }
-
     getUserId = async _ => {
-        console.log(this.state.pet);
         const shop = await shopService.getById(this.state.pet.shop._id);
         const ownerId = await shop.owner._id;
         this.setState({ ownerId })
@@ -166,7 +149,6 @@ class _PetDetails extends Component {
                     <div className="pet-details-header">
                         <h2 className="pet-details-heading">{pet.name}</h2>
                         <div className="share-box">
-                            {/* <h4 className="share-heading">Share {pet.name} With Your Friends</h4> */}
                             <FacebookShareButton
                                 url={"http://www.camperstribe.com"}
                                 quote={"See this cute pet I saw on Friendly"}
@@ -200,25 +182,22 @@ class _PetDetails extends Component {
                         <ul className="reactions-list">
                             {
                                 (pet.reacts) ?
-                                    pet.reacts.map((react,idx) => {
+                                    pet.reacts.map((react, idx) => {
                                         if (react.type === 'love') {
                                             return <li key={idx} className="react-count"><FontAwesomeIcon onClick={() => { this.onUpdateReaction('love') }}
                                                 className="heart-icon" icon={faHeart} /> {`${react.count}`}</li>
                                         }
-                                    
+
                                     })
                                     : ''
                             }
                         </ul>
                     </div>
                     <div className="shop-and-pet-info">
-
-
                         <div className="pet-info">
                             <div className="pet-info-up">
                                 <div className="age info-box">
                                     <FontAwesomeIcon className="age-icon info-icon" icon={faCalendarAlt} />
-
                                     <p><span>Age: </span>
                                         {`${parseFloat((Date.now() - new Date(pet.bDate)) / (1000 * 60 * 60 * 24 * 30 * 12)).toFixed(1)}`}
                                     </p>
@@ -239,11 +218,7 @@ class _PetDetails extends Component {
                                     <p><span>Breed:</span> {pet.breed}</p>
                                 </div>
                             </div>
-                            {/* <h4> {pet.summary}</h4> */}
                         </div>
-
-
-
                         <div className="shop-details">
                             <div className="shop-details-up">
                                 {pet.shop && <img className="shop-img" src={`${pet.shop.imgUrl}`} alt="" />}
@@ -273,7 +248,7 @@ class _PetDetails extends Component {
                             </ul>
                         </div>
 
-                        <button  onClick={this.onAdopt} className={`adoption-btn ${pet.isAdopted ? 'adopted' : 'adopt'}`}>{pet.isAdopted ? 'Already Adopted' : 'Adopt'} </button>
+                        <button onClick={this.onAdopt} className={`adoption-btn ${pet.isAdopted ? 'adopted' : 'adopt'}`}>{pet.isAdopted ? 'Already Adopted' : 'Adopt'} </button>
                         {this.state.AdoptionModalMsg && <AdoptionMsgModal />}
 
                     </div>
@@ -285,7 +260,6 @@ class _PetDetails extends Component {
                     <div className="comments-box">
                         <div className="comment-input-box">
                             <TextField autoComplete="off" name="txt" fullWidth={true} value={this.state.currComment} placeholder="Add Comment Here" onChange={this.handleCommentInput} />
-
                             <button className="add-comment-btn" onClick={this.onComment}>Add</button>
                         </div>
                         <ul className="comment-list">
@@ -295,9 +269,7 @@ class _PetDetails extends Component {
                                         return <li className="single-comment-box">
                                             <div className="flex comment-box">
                                                 {(comment.by.imgUrl) ? <img src={comment.by.imgUrl} alt="" /> : ""}
-
                                                 {(comment.by.id === 'guest') ? <img src={"https://images.macrumors.com/t/x_zUFqghBUNBxVUZN_dYoKF3D9g=/1600x0/article-new/2019/04/guest-user-250x250.jpg"} alt="" /> : ""}
-
                                                 <p><span>{comment.by.fullName}: </span> </p>
                                                 <p><span>{comment.createdAt}</span> </p>
                                                 <p>{comment.txt} </p>
@@ -309,31 +281,10 @@ class _PetDetails extends Component {
                         </ul>
                     </div>
                 </div>
-                {/* <div className="actions-box">
-                    {
-                        this.state.isOwnerOfPet ?
-                            <div className="actions-box-edit">
-                                <Link to={`/edit/${pet._id}`}><button onClick={this.onGoToEdit} className="edit-btn">Edit Pet</button></Link>
-                                <button onClick={() => { this.onRemovePet(pet._id) }} className="remove-btn">Delete Pet</button>
-                            </div>
-                            :
-                            <div className="actions-box-adopt">
-                                <h3>Reasons To Adopt</h3>
-                                <p>You save a life. </p>
-                                <p>You adopt a pet, and find a friend.</p>
-                                <p>You help stop cruelty in mass breeding facilities.</p>
-                                <button onClick={this.onAdopt} className="adopt-btn">{this.state.adoptButton}</button>
-                            </div>
-
-                    }
-
-
-                </div> */}
             </section>
         )
     }
 }
-
 
 const mapStateToProps = state => {
     return {
@@ -351,6 +302,5 @@ const mapDispatchToProps = {
     toggleChat
 
 }
-
 
 export const PetDetails = connect(mapStateToProps, mapDispatchToProps)(_PetDetails)

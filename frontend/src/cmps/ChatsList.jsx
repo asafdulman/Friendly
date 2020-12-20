@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { chatService } from "../services/chatService.js"
 import userService from '../services/userService.js';
 import { shopService } from '../services/shopService.js'
 import { getChatById, toggleChat } from '../store/actions/chatActions.js';
-
 
 class _ChatsList extends Component {
 
@@ -37,7 +34,6 @@ class _ChatsList extends Component {
     }
 
     async setRecipientsInfo(miniUser) {
-        console.log('miniuser:', miniUser);
         let userInfo = {
             [miniUser._id]: {
                 imgUrl: miniUser.imgUrl,

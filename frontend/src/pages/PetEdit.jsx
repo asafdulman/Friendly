@@ -6,8 +6,6 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-
 
 export class _PetEdit extends Component {
 
@@ -49,7 +47,7 @@ export class _PetEdit extends Component {
 
     render() {
         const pet = { ...this.state.pet }
-        if (Object.keys(pet).length === 0) return (<h1>LOADING...</h1>)
+        if (Object.keys(pet).length === 0) return <h1>Loading...</h1>
         return (
             <form className={"form-container fields-container flex column align-center below-nav"}
                 onSubmit={(event) => { this.onSubmitForm(event) }}>

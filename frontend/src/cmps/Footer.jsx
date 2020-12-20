@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import {  FacebookIcon, TwitterIcon } from 'react-share'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 
 export class Footer extends Component {
-
-    
-
 
     render() {
         return (

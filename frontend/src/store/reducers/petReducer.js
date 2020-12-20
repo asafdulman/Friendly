@@ -28,7 +28,6 @@ export function petReducer(state = initialState, action) {
                     pets: [...state.pets, action.petToSave]
                 }
                 case 'EDIT_PET':
-                    console.log(action.petToSave);
                     return {
                         ...state,
                         pets: state.pets.map(pet => {
@@ -42,7 +41,6 @@ export function petReducer(state = initialState, action) {
                             pets: state.pets.filter(pet => pet._id !== action.petId)
                         }
                         case 'SET_FILTER':
-                            console.log(action.filterBy);
                             return {
                                 ...state,
                                 filterBy: {

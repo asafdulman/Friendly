@@ -4,12 +4,9 @@ import { OutlinedInput } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
 import { Geolocation } from '../cmps/Geolocation';
-
 import { signup, getUserById, updateUser, login, loadUsers } from '../store/actions/userActions'
 import { saveShop, loadShops } from '../store/actions/shopActions'
-
 
 export class _SignUp extends Component {
 
@@ -39,7 +36,7 @@ export class _SignUp extends Component {
 
     doSignup = async ev => {
         ev.preventDefault();
-        const { userAdopt, userShop } = this.state;
+        const { userShop } = this.state;
         const { fullName, username, password, address, email, phone } = this.state.signupCred;
         if (!fullName || !username || !password || !address) {
             return this.setState({ msg: 'All inputs are required!' });
@@ -91,9 +88,6 @@ export class _SignUp extends Component {
                 name: '', type: '', owner: '', title: '', description: '', location: ''
             }
         });
-        // await this.props.loadShops();
-        // const shopId = this.props.shops.find(shop => { return shop.owner._id === currUser._id })._id;
-        // this.props.history.push(`/shop/${shopId}`)
     }
 
     getGeolocation = (latLng) => {
@@ -108,8 +102,6 @@ export class _SignUp extends Component {
 
     render() {
         const { userAdopt, userShop } = this.state
-        const { loggedInUser } = this.props
-        console.log('this.state.signupCred', this.state.signupCred);
         return (
             <div className="form-container flex column align-center">
                 <h1>We are happy you decided to join us!</h1>
@@ -176,7 +168,6 @@ export class _SignUp extends Component {
 const mapStateToProps = state => {
     return {
         users: state.userReducer.users,
-        loggedInUser: state.userReducer.loggedInUser,
         shops: state.shopReducer.shops
     };
 };

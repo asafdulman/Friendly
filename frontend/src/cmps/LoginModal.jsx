@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-
 import { Button, TextField } from '@material-ui/core';
-import {
-    loadUsers,
-    removeUser,
-    login,
-    logout,
-    signup
-} from '../store/actions/userActions.js';
+import {loadUsers, removeUser, login, logout, signup} from '../store/actions/userActions.js';
 import { getChatById, getChatsByUserId } from '../store/actions/chatActions.js';
+
 class _LoginModal extends Component {
 
     state = {
@@ -51,7 +45,6 @@ class _LoginModal extends Component {
     render() {
         return (
             <div>
-                {/* <div onClick={()=>{this.props.onNavBarClick()}} className="modal-screen">heyyyyyyyy</div> */}
                 <div className="login-modal">
                     <form onSubmit={this.doLogin}>
                         <TextField

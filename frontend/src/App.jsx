@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Home } from './pages/Home';
 import { SignUp } from './pages/SignUp';
-import { About } from './cmps/About';
 import { PetApp } from './pages/PetApp';
 import { PetEdit } from './pages/PetEdit';
 import { PetDetails } from './pages/PetDetails';
@@ -26,7 +25,6 @@ class _App extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) this.setState({ isChatShown: this.props.isChatShown })
   }
-
 
   render() {
 
@@ -66,4 +64,4 @@ const mapDispatchToProps = {
   toggleChat
 }
 
-export const App = connect(mapStateToProps)(_App)
+export const App = connect(mapStateToProps,mapDispatchToProps)(_App)
