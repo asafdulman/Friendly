@@ -11,42 +11,40 @@ import { ShopDetails } from './pages/ShopDetails';
 import { NavBar } from './cmps/NavBar';
 import { userProfile } from './pages/userProfile';
 import { Footer } from './cmps/Footer';
-import {Chat} from './cmps/Chat.jsx'
+import { Chat } from './cmps/Chat.jsx'
 import { toggleChat } from './store/actions/chatActions.js';
 
- class _App extends Component {
+class _App extends Component {
 
-  state={
-    isChatShown:false
+  state = {
+    isChatShown: false
   }
 
-  componentDidMount(){
-    this.setState({isChatShown:this.props.isChatShown})
+  componentDidMount() {
+    this.setState({ isChatShown: this.props.isChatShown })
   }
-  componentDidUpdate(prevProps){
-    if(prevProps!==this.props) this.setState({isChatShown:this.props.isChatShown})
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) this.setState({ isChatShown: this.props.isChatShown })
   }
 
 
   render() {
-   
-    
 
     return (
       <div>
         <header >
-          <NavBar  onToggleChatsList={this.onToggleChatsList}/>
+          <NavBar onToggleChatsList={this.onToggleChatsList} />
         </header>
         <main>
-          {this.state.isChatShown && <Chat/>}
+          {this.state.isChatShown && <Chat />}
           <Switch>
             <Route component={ShopDetails} path="/shop/:id" />
-            <Route component={PetDetails}  path="/details/:id?" />
+            <Route component={PetDetails} path="/details/:id?" />
             <Route component={PetEdit} path="/edit/:id?" />
             <Route component={SignUp} path="/signup/:type?" />
             <Route component={userProfile} path="/profile/:id" />
             <Route component={PetApp} path="/pet/:filterType?" />
-            <Route component={Home} path="/" /> 
+            <Route component={Home} path="/" />
           </Switch>
         </main>
         <footer>
@@ -55,13 +53,12 @@ import { toggleChat } from './store/actions/chatActions.js';
       </div >
     );
   }
-  
+
 }
 
 const mapStateToProps = state => {
   return {
-      isChatShown: state.chatReducer.isChatShown,
-     
+    isChatShown: state.chatReducer.isChatShown,
   }
 }
 

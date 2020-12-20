@@ -42,11 +42,11 @@ class _PetApp extends Component {
         }, () => this.loadPets())
     }
 
-    loadPets = async _ => {
+    loadPets = async () => {
         //loading from props with filter and setting the local state
         await this.props.loadPets(this.props.filterBy);
         const pets = this.props.pets;
-        await this.setState({ ...this.state, pets })
+        this.setState({ ...this.state, pets })
     }
 
     onRemove = (id) => {
@@ -59,7 +59,6 @@ class _PetApp extends Component {
         return (
             <div className="pets-container">
                 <PetFilter />
-                <div id="center"></div>
                 <PetList pets={this.state.pets} onRemove={this.onRemove} user={user} />
             </div>
         )

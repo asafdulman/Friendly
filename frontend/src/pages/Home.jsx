@@ -1,44 +1,14 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import { Hero } from '../cmps/Hero'
-import { loadPets } from '../store/actions/petActions.js'
 import { About } from '../cmps/About'
 
-class _Home extends Component {
-
-    state = {
-        pets: [],
-    }
-
-    componentDidMount() {
-        this.loadPets()       
-    }
-    
-
-    loadPets = () => {
-        this.props.loadPets()
-    }
-
-    render() {
-        const {user} = this.props
-        return (
-            <div>
-
-                <Hero />
-                <About />
-            </div>
-        )
-    }
+export function Home() {
+    return (
+        <div>
+            <h1>hey</h1>
+            <Hero />
+            <About />
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        pets: state.petReducer.pets,
-        user: state.userReducer.loggedInUser
-    }
-}
-const mapDispatchToProps = {
-    loadPets
-}
-
-export const Home = connect(mapStateToProps, mapDispatchToProps)(_Home)
