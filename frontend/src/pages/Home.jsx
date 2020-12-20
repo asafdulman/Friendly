@@ -5,7 +5,6 @@ import { About } from '../cmps/About'
 export function Home() {
     return (
         <div>
-            <h1>hey</h1>
             <Hero />
             <About />
         </div>
