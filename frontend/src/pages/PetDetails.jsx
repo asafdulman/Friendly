@@ -90,7 +90,6 @@ class _PetDetails extends Component {
     }
 
     onRemovePet = (petId) => {
-        console.log('petId', petId);
         this.props.removePet(petId)
     }
 

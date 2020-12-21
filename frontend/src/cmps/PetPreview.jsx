@@ -1,6 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faMars } from '@fortawesome/free-solid-svg-icons'
 import { faVenus } from '@fortawesome/free-solid-svg-icons'
 import React, { Component } from 'react';
@@ -16,12 +15,12 @@ class _PetPreview extends Component {
         loveIconClass: 'love-icon'
     }
 
-    async componentDidMount() {
-        await this.setState({ pet: { ...this.props.pet } })
+    componentDidMount() {
+        this.setState({ pet: { ...this.props.pet } })
     }
-    async componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         if (prevProps != this.props) {
-            await this.setState({ pet: { ...this.props.pet } })
+            this.setState({ pet: { ...this.props.pet } })
         }
     }
 
@@ -30,14 +29,13 @@ class _PetPreview extends Component {
         const pet = this.state.pet;
         const updatedReacts = pet.reacts.map(react => {
             if (react.type === reaction) {
-                this.setState({isLiked: !this.state.isLiked})
-            
+                this.setState({ isLiked: !this.state.isLiked })
                 react.count += this.state.isLiked ? -1 : +1;
                 this.setState({ ...this.state, isLiked: !this.state.isLiked })
             }
             return react
         })
-        await this.setState({ ...pet, reacts: [...updatedReacts] })
+        this.setState({ ...pet, reacts: [...updatedReacts] })
         const petToSave = await JSON.parse(JSON.stringify(this.state.pet));
         await this.props.savePet(petToSave);
     }
@@ -45,10 +43,9 @@ class _PetPreview extends Component {
     render() {
         const { pet } = (Object.keys(this.state.pet).length === 0) ? this.props : this.state;
         const loveIconClass = (this.state.isLiked) ? 'love-icon-active' : 'love-icon'
-        if (!pet || !pet.reacts) return <h1>loading...</h1>
+        if (!pet || !pet.reacts) return <h1>Loading...</h1>
         return (
             <NavLink to={`/details/${pet._id}`}>
-
                 <div className="pet-preview">
                     {pet.isAdopted && <div className="ribbon ribbon-top-right"><span>Adopted</span></div>}
                     <img src={(pet.imgUrls) ? pet.imgUrls[0] : ''} alt="pet" />
@@ -62,17 +59,13 @@ class _PetPreview extends Component {
                     </div>
                     <div className="shop-container">
                         {pet.shop && <Link to={`/shop/${pet.shop._id}`}>{pet.shop.fullName}</Link>}
-                        {/* {pet.shop && <h4>{pet.shop.fullName}</h4>} */}
                         <div onClick={(ev) => { this.onUpdateReaction(ev, 'love') }} className="pet-rate-box">
                             <div className="content">
-                            <span>{pet.reacts && pet.reacts[0].type === 'love' ? <span className={loveIconClass}></span> : ''} </span>
-
+                                <span>{pet.reacts && pet.reacts[0].type === 'love' ? <span className={loveIconClass}></span> : ''} </span>
                             </div>
                             {pet.reacts && pet.reacts[0].type === 'love' ? <span className="love-count">{pet.reacts[0].count}</span> : ''}
                         </div>
                     </div>
-
-
                 </div>
             </ NavLink >
         )
@@ -90,7 +83,6 @@ const mapDispatchToProps = {
     loadPets
 
 }
-
 
 export const PetPreview = connect(mapStateToProps, mapDispatchToProps)(_PetPreview)
 

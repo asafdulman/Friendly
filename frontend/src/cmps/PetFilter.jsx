@@ -20,7 +20,7 @@ class _PetFilter extends Component {
             txt: '',
             distance: {
                 lat: 0,
-                lon: 0,
+                lng: 0,
                 range: 0
             }
         },
@@ -41,7 +41,7 @@ class _PetFilter extends Component {
     getUserPosition = async (position) => {
         const distance = {
             lat: position.coords.latitude,
-            lon: position.coords.longitude,
+            lng: position.coords.longitude,
             range: 0
         }
         await this.setState({ filterBy: { ...this.state.filterBy, distance: distance } });

@@ -5,7 +5,6 @@ import { shopReducer } from './reducers/shopReducer';
 import { userReducer } from './reducers/userReducer'
 import { orderReducer } from './reducers/orderReducer'
 import { chatReducer } from './reducers/chatReducer';
-// import { reviewReducer } from './reducers/reviewReducer';
 
 const rootReducer = combineReducers({
     petReducer,

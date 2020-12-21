@@ -1,5 +1,7 @@
 import httpService from './httpService.js'
-import {SphericalUtil} from "node-geometry-library";
+import {
+    SphericalUtil
+} from "node-geometry-library";
 const BASE_URL = '/pet'
 
 export const petService = {
@@ -38,11 +40,9 @@ function filterPets(pets, filterBy) {
     if (!filterBy) return pets
     let filteredPets = pets
     if (filterBy.txt) {
-        filterBy.txt = filterBy.txt.trim(' ');
-        filterBy.txt = filterBy.txt.trim(',');
-
+        filterBy.txt = filterBy.txt.trim();
         let words = filterBy.txt.split(' ');
-        if (words.length = 1) words = filterBy.txt.split(',');
+        if (words.length === 1) words = filterBy.txt.split(',');
 
         words.forEach(word => {
             filteredPets = filteredPets.filter(pet => {
@@ -59,11 +59,17 @@ function filterPets(pets, filterBy) {
     })
 
     if (filterBy.distance.range) {
-        const userLoc = {lat: filterBy.distance.lat, lng: filterBy.distance.lon};
+        const userLoc = {
+            lat: filterBy.distance.lat,
+            lng: filterBy.distance.lng
+        };
         filteredPets = filteredPets.filter(pet => {
-            const petLoc = {lat:pet.location.lat, lng:pet.location.lng };
-            const distanceFromUser = SphericalUtil.computeDistanceBetween(userLoc, petLoc)/1000
-            return  distanceFromUser <= filterBy.distance.range
+            const petLoc = {
+                lat: pet.location.lat,
+                lng: pet.location.lng
+            };
+            const distanceFromUser = SphericalUtil.computeDistanceBetween(userLoc, petLoc) / 1000
+            return distanceFromUser <= filterBy.distance.range
         })
     }
 
