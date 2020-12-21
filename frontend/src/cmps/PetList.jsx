@@ -14,23 +14,18 @@ class _PetList extends Component {
         })
     }
 
-
     render() {
         const { pets, onRemove, onEdit } = this.props
-        const popPets = pets.filter((pet) => pet.reacts[0].count > 90)
-        const notPopPets = pets.filter((pet) => pet.reacts[0].count <= 90)
+        const popPets = pets.filter(pet => pet.reacts[0].count > 90)
+        const notPopPets = pets.filter(pet => pet.reacts[0].count <= 90)
         const { filterBy } = this.props
         const isEmptyFilter = !filterBy.type && !filterBy.txt && !filterBy.distance.range
-
         return (
             <div className="pet-list-container">
-
                 {isEmptyFilter && <h4 className="popular-pets-header">Most Popular</h4>}
                 {isEmptyFilter && <ul className="pet-list"> {
                     popPets.map((pet, index) => <PetPreview pet={pet} key={index} onRemove={onRemove} onEdit={onEdit} />)
-
                 }
-
                 </ul>}
                 <hr />
                 {isEmptyFilter && <h4 className="popular-pets-header">Very Popular</h4>}
@@ -40,8 +35,6 @@ class _PetList extends Component {
                 </ul>}
                 { !isEmptyFilter && <ul className="pet-list"> {pets.map((pet, index) => <PetPreview pet={pet} key={index} onRemove={onRemove} onEdit={onEdit} />)}</ul>}
             </div>
-
-
         )
     }
 }
@@ -51,7 +44,6 @@ const mapStateToProps = state => {
         filterBy: state.petReducer.filterBy
     }
 }
-
 const mapDispatchToProps = {
 
 }

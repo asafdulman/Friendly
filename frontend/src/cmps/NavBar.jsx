@@ -39,7 +39,6 @@ class _NavBar extends Component {
 
     onNavBarClick = () => {
         this.setState({ showLoginModal: !this.state.showLoginModal });
-
     }
 
     onLogOut = () => {

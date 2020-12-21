@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadPets, savePet } from '../store/actions/petActions';
 
-
 class _PetPreview extends Component {
 
     state = {

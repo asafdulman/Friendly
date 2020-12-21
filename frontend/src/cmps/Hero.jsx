@@ -3,8 +3,6 @@ import { FilterSearch } from './FilterSearch'
 import { Parallax } from 'react-parallax';
 export class Hero extends Component {
 
-
-
     render() {
         return (
             <Parallax

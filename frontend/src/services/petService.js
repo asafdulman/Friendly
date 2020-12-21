@@ -49,7 +49,9 @@ function filterPets(pets, filterBy) {
                 if (pet.name.toLowerCase().includes(word) ||
                     pet.type.toLowerCase().includes(word) ||
                     pet.size.toLowerCase().includes(word) ||
-                    pet.shop.fullName.toLowerCase().includes(word)) return pet
+                    pet.shop.fullName.toLowerCase().includes(word)) {
+                    return pet
+                }
             })
         })
     }

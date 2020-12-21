@@ -43,7 +43,6 @@ class _PetApp extends Component {
     }
 
     loadPets = async () => {
-        //loading from props with filter and setting the local state
         await this.props.loadPets(this.props.filterBy);
         const pets = this.props.pets;
         this.setState({ ...this.state, pets })

@@ -45,7 +45,6 @@ class _FilterSearch extends Component {
     onSearch = async () => {
         await this.props.setFilter({ txt: this.state.txt }, () => this.props.loadPets())
         if (this.state.parent === 'hero') this.props.history.push('/pet')
-
     }
 
     render() {

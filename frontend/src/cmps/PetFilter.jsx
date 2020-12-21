@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Input, InputLabel, Select } from '@material-ui/core';
-
-import { TagsFilter } from './TagsFilter'
+import { InputLabel, Select } from '@material-ui/core';
 import { setFilter, loadPets } from '../store/actions/petActions.js'
 import { FilterSearch } from './FilterSearch';
 import { CategoryList } from './CategoryList';
-// import SearchIcon from '@material-ui/icons/Search';
 
 class _PetFilter extends Component {
 
@@ -92,7 +89,6 @@ class _PetFilter extends Component {
     render() {
         return (
             <div className="filter-container flex column align-center">
-
                 <section className="search-container flex space-around">
                     <FilterSearch parent="main" onInputChange={this.onInputChange} />
                 </section>
@@ -107,8 +103,7 @@ class _PetFilter extends Component {
                         inputProps={{
                             name: 'range',
                             type: "number"
-                        }}
-                    >
+                        }}>
                         <option aria-label="None" value="" />
                         <option value="20">20km</option>
                         <option value="50">50km</option>

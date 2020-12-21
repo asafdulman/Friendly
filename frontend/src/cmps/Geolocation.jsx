@@ -39,7 +39,7 @@ export class Geolocation extends React.Component {
 
     render() {
         const latLng = this.state;
-        if (!latLng) return <h1>LOADING...</h1>
+        if (!latLng) return <h1>Loading...</h1>
         return (
             <div className="flex column align-center">
                 <OutlinedInput type="text" name="locName" placeholder="Your Shop Location"
